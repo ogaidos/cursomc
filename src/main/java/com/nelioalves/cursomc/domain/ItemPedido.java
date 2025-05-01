@@ -3,6 +3,8 @@ package com.nelioalves.cursomc.domain;
 import java.io.Serializable;
 import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
 
@@ -12,6 +14,7 @@ public class ItemPedido implements Serializable{
 
 	//como este eh um obj auxiliar tem que ser instanciado
 	//Id embutido em um dados auxiliar
+	@JsonIgnore //nao olhe para esse cara aqui, isso nao vai ser serializado
 	@EmbeddedId 
 	private ItemPedidoPK id = new ItemPedidoPK();
 	
@@ -34,9 +37,11 @@ public class ItemPedido implements Serializable{
 		this.preço = preço;
 	}
 	
+	@JsonIgnore
 	public Pedido getPedido(){
 		return id.getPedido();
 	}
+	
 	
 	public Produto getProduto(){
 		return id.getProduto();
